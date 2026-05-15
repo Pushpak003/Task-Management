@@ -306,7 +306,7 @@ npm run dev
 Starts the Vite development server.
 
 ```bash
-npm run build
+=98 32! ,/* pm run build
 ```
 
 Creates a production build.
@@ -339,3 +339,25 @@ Runs ESLint.
 - Use long, random JWT secrets in deployed environments.
 - Keep MongoDB credentials private.
 - Configure CORS with the exact frontend URL in production.
+## Screen Shots
+- Super Admin Panel
+  
+  <img width="1918" height="1022" alt="image" src="https://github.com/user-attachments/assets/8a439210-d55c-4648-8c37-05569832719f" />
+
+- Home Page
+  
+   <img width="1918" height="982" alt="image" src="https://github.com/user-attachments/assets/9015eb98-94c5-431a-99a3-464331e4ca6a" />
+
+- Task Creaing
+
+  <img width="1918" height="985" alt="image" src="https://github.com/user-attachments/assets/a367c11e-16b2-49d2-8475-f1fe60df0d4b" />
+
+- Task Logs
+
+  <img width="1918" height="976" alt="image" src="https://github.com/user-attachments/assets/df8323a0-3e11-4612-8a8a-55f0eda40dfc" />
+
+
+
+   
+
+
