@@ -184,6 +184,7 @@ Create `Backend/.env` from `Backend/.sample.env`.
 | `REFRESH_SECRET` | Secret used to sign refresh tokens | `change-this-refresh-secret` |
 | `REFRESH_EXPIRY` | Refresh token lifetime | `7d` |
 | `FRONTEND_URL` | Allowed frontend origin for CORS | `http://localhost:5173` |
+| `FRONTEND_URLS` | Optional comma-separated list of allowed frontend origins for production and preview deployments | `https://app.vercel.app,https://preview.vercel.app` |
 
 ### Frontend
 
@@ -325,7 +326,8 @@ Runs ESLint.
 ## Deployment Notes
 
 - Set `VITE_API_URL` to the deployed backend API URL in the frontend hosting provider.
-- Set `FRONTEND_URL` to the deployed frontend origin in the backend hosting provider.
+- Set `FRONTEND_URL` or `FRONTEND_URLS` to the deployed frontend origin in the backend hosting provider.
+- Vercel preview URLs matching `https://task-mangment-*.vercel.app` are allowed by the backend CORS config.
 - Set strong production values for `JWT_SECRET` and `REFRESH_SECRET`.
 - Use a production MongoDB connection string for `DATABASE_URL`.
 - The backend listens on `0.0.0.0` and uses `process.env.PORT`, which works well on common Node hosting platforms.

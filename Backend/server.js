@@ -23,11 +23,42 @@ connectDB().then(async () => {
 // Core Middlewares
 app.use(express.json());
 
-// ✅ Allow ALL origins (CORS fix)
-app.use(cors({
-  origin: (origin, callback) => callback(null, true),
+const parseOrigins = (value = "") =>
+  value
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  ...parseOrigins(process.env.FRONTEND_URL),
+  ...parseOrigins(process.env.FRONTEND_URLS),
+];
+
+const allowedOriginPatterns = [
+  /^https:\/\/task-mangment(?:-[a-z0-9-]+)?\.vercel\.app$/,
+];
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      allowedOriginPatterns.some((pattern) => pattern.test(origin))
+    ) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
   credentials: true,
-}));
+  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 app.use(helmet());
 
