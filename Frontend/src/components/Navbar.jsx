@@ -133,7 +133,7 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="/register"
+                to="/login"
                 className="bg-black dark:bg-white text-white dark:text-black px-5 py-2 rounded-lg hover:opacity-90 transition"
               >
                 Get Started

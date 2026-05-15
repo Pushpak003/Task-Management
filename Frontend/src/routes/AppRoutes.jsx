@@ -28,6 +28,7 @@ const AppRoutes = () => {
             allowedRoles={[
               "super_admin",
               "admin",
+              "manager",
             ]}
           >
             <Register />

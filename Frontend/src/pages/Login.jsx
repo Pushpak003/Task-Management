@@ -87,13 +87,7 @@ const Login = () => {
         </button>
 
         <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
-          Create User?{" "}
-          <Link
-            to="/register"
-            className="text-blue-500 dark:text-blue-400 hover:underline"
-          >
-            Register
-          </Link>
+          User accounts are created by an authorized manager, admin, or super admin.
         </p>
       </form>
     </div>

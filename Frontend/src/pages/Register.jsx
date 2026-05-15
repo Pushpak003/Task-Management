@@ -2,17 +2,25 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
 import useAuth from "../hooks/useAuth";
-import { roleRedirect } from "../utils/roleRedirect";
+
+const roleOptionsByUserRole = {
+  super_admin: ["admin", "manager", "employee"],
+  admin: ["manager", "employee"],
+  manager: ["employee"],
+};
 
 const Register = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { user } = useAuth();
+
+  const allowedRoles = roleOptionsByUserRole[user?.role] || ["employee"];
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     passwordConfirm: "",
     name: "",
+    role: allowedRoles[0],
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,13 +45,11 @@ const Register = () => {
       setLoading(true);
       setError("");
 
-      const res = await api.post("/auth/register", formData);
+      const { passwordConfirm, ...payload } = formData;
 
-      const data = res.data;
+      await api.post("/auth/register", payload);
 
-      login(data);
-
-      navigate(roleRedirect(data.user.role));
+      navigate("/users");
     } catch (err) {
       setError(
         err.response?.data?.message || "Registration failed"
@@ -60,7 +66,7 @@ const Register = () => {
         className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md dark:shadow-lg w-full max-w-md"
       >
         <h1 className="text-3xl font-bold mb-6 text-center text-black dark:text-white">
-          Register
+          Create User
         </h1>
 
         {error && (
@@ -107,21 +113,35 @@ const Register = () => {
           required
         />
 
+        <select
+          name="role"
+          className="w-full border border-gray-300 dark:border-gray-600 p-3 rounded mb-4 bg-white dark:bg-gray-700 text-black dark:text-white"
+          value={formData.role}
+          onChange={handleChange}
+          required
+        >
+          {allowedRoles.map((role) => (
+            <option key={role} value={role}>
+              {role.replace("_", " ")}
+            </option>
+          ))}
+        </select>
+
         <button
           type="submit"
           disabled={loading}
           className="w-full bg-black dark:bg-white text-white dark:text-black py-3 rounded hover:opacity-90 transition"
         >
-          {loading ? "Loading..." : "Register"}
+          {loading ? "Loading..." : "Create User"}
         </button>
 
         <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
-          Already have an account?{" "}
+          Back to{" "}
           <Link
-            to="/login"
+            to="/users"
             className="text-blue-500 dark:text-blue-400 hover:underline"
           >
-            Login
+            Users
           </Link>
         </p>
       </form>
