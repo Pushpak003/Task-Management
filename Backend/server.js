@@ -42,7 +42,7 @@ app.use(helmet());
 
 // Public Routes
 app.get("/", (req, res) => {
-  res.send("API Running...");
+  res.send("Task API Running...");
 });
 
 app.get("/api/health", (req, res) => {
