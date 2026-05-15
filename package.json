@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "start": "cd Backend && npm install && npm start"
   }
